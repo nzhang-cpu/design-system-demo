@@ -16,7 +16,9 @@ function figmaAssetResolver() {
   }
 }
 
-export default defineConfig({
+export default defineConfig(({ command, isPreview }) => ({
+  // GitHub Pages serves this repo at /design-system-demo/; keep local `vite` at /
+  base: command === 'build' || isPreview ? '/design-system-demo/' : '/',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
@@ -52,4 +54,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
